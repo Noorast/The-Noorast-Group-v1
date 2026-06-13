@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /.netlify/
+Disallow: /toolkit/property-passport/login
+
+Sitemap: https://www.noorast.co.uk/sitemap.xml
