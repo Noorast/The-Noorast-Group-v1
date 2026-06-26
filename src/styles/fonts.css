@@ -1,0 +1,5 @@
+/* ── Adobe Fonts, Aktiv Grotesk (the studio wordmark + system type) ── */
+@import url("https://use.typekit.net/vin2wid.css");
+
+/* Fallback grotesque if the kit fails to load */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");

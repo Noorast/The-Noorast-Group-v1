@@ -1,0 +1,265 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+@import './motion.css';
+
+/* ══════════════════════════════════════════════════════════════
+   NOORAST — STRUCTURAL COMPONENT SYSTEM
+   The grid is the design. Hairline rules, hard alignment, modular
+   spacing on an 8px unit, one accent used as a plane. No ornament,
+   no decorative ticks, no soft shadows, no rounded corners.
+══════════════════════════════════════════════════════════════ */
+
+html { scroll-behavior: smooth; }
+::selection { background: var(--accent); color: var(--on-accent); }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .marquee-track, .hero-statement, .hero-slide-active { animation: none !important; }
+}
+
+/* ══ THE GRID ═════════════════════════════════════════════════
+   A 12-column structural frame with a visible outer measure.
+   Content sits ON the grid; nothing floats free of it. */
+
+.frame {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
+}
+
+.grid12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(1rem, 2vw, 2rem);
+}
+@media (max-width: 768px) {
+  .grid12 { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ══ STRUCTURAL RULES ═════════════════════════════════════════
+   Hairlines that divide the page into modules. Full-strength ink
+   at low weight reads as drawn, not soft. */
+
+.rule-t { border-top: 1px solid var(--line-soft); }
+.rule-b { border-bottom: 1px solid var(--line-soft); }
+.rule-strong-t { border-top: 1.5px solid var(--ink); }
+.rule-strong-b { border-bottom: 1.5px solid var(--ink); }
+
+/* A section that announces itself with a top rule + index number */
+.module { border-top: 1px solid var(--line-soft); position: relative; }
+
+/* ══ LABELS / INDEX ═══════════════════════════════════════════
+   Tabular index numerals and quiet uppercase labels. The label
+   is the only "eyebrow" device, and it carries no decorative rule. */
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.index {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+.index-lg {
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+/* keep legacy class names alive, mapped to the new label */
+.eyebrow-tick, .masonry-label { position: relative; }
+.brand-dot {
+  display: inline-block; width: 3px; height: 3px;
+  background: currentColor; opacity: 0.4;
+  vertical-align: middle; margin: 0 0.7em; transform: translateY(-1px);
+}
+
+/* ══ ACCENT PLANE ═════════════════════════════════════════════
+   The orange is never a highlight or a 1px line. It is a filled
+   plane, a structural block, used once or twice per page at most. */
+
+.plane {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.plane .label { color: rgba(255,255,255,0.75); }
+.plane a { color: var(--on-accent); }
+
+/* ══ NAV ══════════════════════════════════════════════════════ */
+
+.nav-link {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--ink-2);
+  transition: color 0.2s ease;
+  padding: 0.25rem 0;
+}
+.nav-link:hover, .nav-link.active { color: var(--ink); }
+.nav-link.active::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 2px; background: var(--accent);
+}
+
+/* ══ BUTTONS ══════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em;
+  padding: 0.875rem 1.5rem;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-solid { background: var(--ink); color: var(--paper); }
+.btn-solid:hover { background: var(--accent); color: var(--on-accent); }
+.btn-line {
+  background: transparent; color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+
+/* Inline structural link, arrow, underline on hover only */
+.tlink {
+  text-decoration: none; font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.01em; color: var(--ink);
+  border-bottom: 1.5px solid var(--ink); padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.tlink:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ══ IMAGE BLOCK ══════════════════════════════════════════════
+   Images are framed by the grid, never floated. Hard edges. */
+
+.imgblock { overflow: hidden; background: var(--paper-2); display: block; }
+.imgblock img {
+  width: 100%; height: 100%; display: block; object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.group:hover .imgblock img { transform: scale(1.03); }
+
+/* fig caption under an image */
+.fig {
+  display: flex; align-items: baseline; gap: 0.875rem;
+  margin-top: 0.75rem;
+}
+.fig-n { font-size: 0.625rem; font-variant-numeric: tabular-nums; color: var(--ink-3); flex-shrink: 0; letter-spacing: 0.04em; }
+.fig-t { font-size: 0.75rem; font-weight: 500; color: var(--ink-2); transition: color 0.2s ease; }
+.group:hover .fig-t { color: var(--ink); }
+
+/* ══ HORIZONTAL RAIL ══════════════════════════════════════════ */
+
+.rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
+.rail::-webkit-scrollbar { display: none; }
+.rail:active { cursor: grabbing; }
+.rail-cell { flex-shrink: 0; scroll-snap-align: start; }
+
+/* ══ TIMELINE (process) ═══════════════════════════════════════ */
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  border-top: 1.5px solid var(--ink);
+}
+.timeline-stage { padding: 1.5rem 1.5rem 0 0; border-right: 1px solid var(--line-soft); }
+.timeline-stage:last-child { border-right: none; }
+.timeline-n  { font-size: 1.75rem; font-weight: 400; line-height: 1; color: var(--ink-3); display: block; margin-bottom: 0.875rem; font-variant-numeric: tabular-nums; }
+.timeline-t  { font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; color: var(--ink); display: block; margin-bottom: 0.5rem; }
+.timeline-d  { font-size: 0.625rem; letter-spacing: 0.02em; color: var(--ink-3); display: block; margin-bottom: 0.625rem; }
+.timeline-r  { font-size: 0.8125rem; line-height: 1.55; color: var(--ink-2); }
+@media (max-width: 767px) { .timeline { grid-template-columns: 1fr 1fr; } .timeline-stage:nth-child(even) { border-right: none; } }
+
+/* ══ FORMS ════════════════════════════════════════════════════ */
+
+.field {
+  width: 100%; padding: 0.875rem 0;
+  border: none; border-bottom: 1.5px solid var(--ink);
+  background: transparent; font-size: 0.9375rem; font-family: inherit;
+  color: var(--ink); border-radius: 0; -webkit-appearance: none;
+  transition: border-color 0.2s;
+}
+.field:focus { outline: none; border-bottom-color: var(--accent); }
+.field::placeholder { color: var(--ink-3); }
+select.field { cursor: pointer; }
+textarea.field { resize: none; min-height: 80px; }
+
+/* ══ MARQUEE ══════════════════════════════════════════════════ */
+
+.marquee-wrap { overflow: hidden; width: 100%; }
+.marquee-track { display: inline-flex; align-items: center; white-space: nowrap; animation: marqueeScroll 50s linear infinite; will-change: transform; }
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ══ STICKY ═══════════════════════════════════════════════════ */
+.sticky-col { position: sticky; top: 6rem; align-self: start; }
+@media (max-width: 1023px) { .sticky-col { position: static; } }
+
+/* ══ LEGACY BRIDGES ═══════════════════════════════════════════
+   Old class names from prior versions, remapped so any page not
+   yet rebuilt still renders sensibly rather than breaking. */
+
+.joint { border-top: 1px solid var(--line-soft); position: relative; }
+.measure-lg { padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+.measure-xl { padding-top: clamp(4.5rem, 9vw, 8rem); padding-bottom: clamp(4.5rem, 9vw, 8rem); }
+.index-mark { font-variant-numeric: tabular-nums; font-weight: 400; color: var(--ink-3); }
+
+/* Legacy dark-section helpers used by older pages */
+.enquiry-field { width: 100%; padding: 0.875rem 0; border: none; border-bottom: 1.5px solid var(--ink); background: transparent; font-size: 0.9375rem; font-family: inherit; color: var(--ink); border-radius: 0; -webkit-appearance: none; }
+.enquiry-field:focus { outline: none; border-bottom-color: var(--accent); }
+.enquiry-field::placeholder { color: var(--ink-3); }
+.seg { display: flex; border: 1.5px solid var(--ink); }
+.seg button { flex: 1; padding: 0.75rem 0.5rem; background: none; border: none; border-right: 1.5px solid var(--ink); font-family: inherit; font-size: 0.75rem; color: var(--ink-2); cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.seg button:last-child { border-right: none; }
+.seg button.on { background: var(--ink); color: var(--paper); }
+.instrument { border-top: 1.5px solid var(--ink); }
+.instrument-row { border-bottom: 1px solid var(--line-soft); padding: 1.5rem 0; }
+.instrument-label { font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+input[type="range"].rule { -webkit-appearance: none; appearance: none; width: 100%; height: 1.5px; background: var(--ink); cursor: pointer; }
+input[type="range"].rule::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; border-radius: 0; background: var(--accent); }
+input[type="range"].rule::-moz-range-thumb { width: 14px; height: 14px; border: none; border-radius: 0; background: var(--accent); }
+
+/* ══ RESPONSIVE GRID SPANS (shell) ════════════════════════════ */
+@media (max-width: 768px) {
+  .contact-plane-side { grid-column: 1 / -1 !important; margin-top: 2rem; }
+  .footer-brand, .footer-col { grid-column: 1 / -1 !important; }
+}
+.footer-link { transition: color 0.2s ease; }
+.footer-link:hover { color: var(--paper) !important; }
+
+/* ══ HOME RESPONSIVE ══════════════════════════════════════════ */
+@media (max-width: 880px) {
+  .hero-split { grid-template-columns: 1fr !important; min-height: 0 !important; }
+  .hero-split > div:first-child { border-right: none !important; border-bottom: 1.5px solid var(--ink); padding: 1.5rem !important; gap: 2rem; }
+  .hero-split > div:last-child { aspect-ratio: 4/3; }
+  .home-block-r, .home-block-l { grid-column: 1 / -1 !important; align-self: auto !important; }
+  .founding-q, .founding-side { grid-column: 1 / -1 !important; }
+  .closing-side { grid-column: 1 / -1 !important; margin-top: 1.5rem; }
+}
+@media (max-width: 768px) {
+  /* statement + section heads collapse to full width on the 6-col grid */
+  .frame .grid12 > .label[style*="span 3"] { grid-column: 1 / -1 !important; margin-bottom: 0.75rem; }
+  .frame .grid12 > [style*="4 / span 8"] { grid-column: 1 / -1 !important; }
+  .frame .grid12 > [style*="span 7"] { grid-column: 1 / -1 !important; }
+  .frame .grid12 > [style*="6 / span 7"] { grid-column: 1 / -1 !important; }
+  .frame .grid12 > [style*="9 / span 4"] { grid-column: 1 / -1 !important; }
+  .disc-row { grid-template-columns: auto 1fr !important; row-gap: 0.75rem; }
+  .disc-row p { grid-column: 1 / -1 !important; }
+  .disc-arrow { display: none !important; }
+}
